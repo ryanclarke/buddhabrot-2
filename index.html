@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Buddhabrot Viewer</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+</head>
+<body>
+	<div id="map" style="width: 1024px; height: 768px;"></div>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+	<script>
+
+		var map = L.map('map', {
+        center: [0, 0],
+        zoom: 2,
+        maxBounds: [[-85, -180],[85, 180]]
+      });
+
+    L.tileLayer('{id}/{z}/{y}/{x}.png', {
+			maxZoom: 7,
+			attribution: 'David Aramant and Ryan Clarke',
+			id: 'tiles',
+      continuousWorld: true,
+      updateWhenIdle: false
+		}).addTo(map);
+
+		var popup = L.popup();
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent(e.latlng.toString())
+				.openOn(map);
+		}
+
+		map.on('click', onMapClick);
+
+	</script>
+</body>
+</html>
